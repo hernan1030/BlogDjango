@@ -1,0 +1,11 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+     
+    <h1>Inicio de pagina desde el home html</h1>
+    <h2>NOMBRE: {{user}}</h2>
+
+    <h3>Salir de la seccion: <a href="{% url 'logout' %}">aqui</a> </h3>
+    <h3>cambiar contraseña: <a href="{% url 'password-change' %}">aqui</a> </h3>
+
+{% endblock %}
