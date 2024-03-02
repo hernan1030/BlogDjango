@@ -3,6 +3,9 @@
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
+
+{% include "includes/top-menu.html" %}
+
    <div class="container p-5">
        <div class="row justify-content-center">
            <div class="col-md-6 bg-dark text-light p-4 rounded">
@@ -12,7 +15,10 @@
                    {{ form.as_p }}
                    <button type="submit" class="btn btn-primary btn-block mt-3">Iniciar Sesión</button>
                </form>
+               <a class="link-info text-center " href="{% url 'register' %}">Registrar</a>
            </div>
        </div>
    </div>
+
+   {% include "includes/footer.html" %}
 {% endblock %}

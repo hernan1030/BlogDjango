@@ -1,11 +1,83 @@
 {% extends "home/base.html" %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
-     
-    <h1>Inicio de pagina desde el home html</h1>
-    <h2>NOMBRE: {{user}}</h2>
+ 
+{% include "includes/top-menu.html" %}
 
-    <h3>Salir de la seccion: <a href="{% url 'logout' %}">aqui</a> </h3>
-    <h3>cambiar contraseña: <a href="{% url 'password-change' %}">aqui</a> </h3>
+     
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 border-bottom mb-4" style="background-image: url('{% static 'img/trigram.png' %}'); background-size: cover;">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder text-white">{{ p_principal.title }}!</h1>
+            <p class="lead mb-0 text-white">{{ p_principal.description }}</p>
+        </div>
+    </div>
+</header>
+           
+        <div class="container">
+
+            <div class="row"><!--row 1-->
+
+                <!--Entradas blog-->
+                <div class="col-lg-7">
+                    
+                    <!--card blog-grande-->
+                    <div class="card mb-4">
+                        <a href="{% url 'home' %}"><img class="card-img-top" style="height: 350px; width: 620px;" src="{{ portada.image.url }}" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">{{ portada.created|date:"F j, Y" }}</div>
+                            <h2 class="card-title">{{ portada.title }}</h2>
+                            <p class="card-text">{{ portada.resume }}!</p>
+                            <a class="btn btn-primary" href="{% url 'entradas_id' portada.slug %}">Leer mas→</a>
+                        </div>
+                    </div><!-- fin card blog-grande-->
+
+
+                </div><!--fin de columna 7-->
+        
+                <!--conoce mas sobre nosotros-->
+                <div class="col-lg-5">
+                    <div class="card mb-4">
+                        <div class="card-header">{{ p_principal.about_title }}</div>
+                        <div class="card-body">{{p_principal.about_text}}!</div>
+                    </div>
+                    <!--formulario de solo email-->
+                    <form   action="{% url 'add-suscription' %}" method="post">{% csrf_token %}
+                        {{form.email}}
+                        <button class="btn btn-dark mt-3"  type="submit">Suscribir</button>
+                    </form>
+                    <!--fin del formulario-->               
+                </div><!--fin de conoce mas sobre nosotros-->
+                
+
+            </div><!--fin row 1-->
+
+        </div><!--fin de container-->
+
+
+     <div class="container  mt-5">
+        <div class="row text-center">
+            {% for entrada in entradas_home %}
+            <div class="col-lg-6">
+                <!-- Blog post-->
+                <div class="mb-4">
+                <a href="#!"><img style="height:180px; width:350px; " class="card-img-top img-fluid " src="{{ entrada.image.url }}" alt="..." /></a>
+                <div class="card-body">
+                <div class="small text-muted">{{ entrada.created|date:"j/F" }}</div>
+                <h2 class="card-title h4">{{ entrada.title|truncatechars:20 }}</h2>
+                <p class="card-text">{{ entrada.resume|truncatechars:40 }}.</p>
+                <a class="btn btn-primary" href="{% url 'entradas_id' entrada.slug %}">Leer mas →</a>        
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+     </div>
+
+   {% include "includes/footer.html" %}
+
 
 {% endblock %}

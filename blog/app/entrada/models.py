@@ -3,12 +3,22 @@ from django.db import models
 # Desde el settings en base esta AUTH_USER_MODEL = "user.User" que hace referencia a tomo mi modelo de usuario personalizado lo traigo y lo utilizo en modelo entrada
 from django.conf import settings
 
-# aqui utulizamos apps de terceros ck editor
-# pip install django-ckeditor
+# para traer la hora actual en el save
+from datetime import datetime, timedelta
+
+# para que se creae un sllug convinado con titulos y segundos
+from django.template.defaultfilters import slugify
+
 # apps de terceros
 from model_utils.models import TimeStampedModel
-from ckeditor_uploader.fields import RichTextUploadingField
 
+
+# from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
+
+
+# manager creado desde el home
+from app.entrada.manager import EntryManagers
 # Create your models here.
 
 
@@ -44,15 +54,33 @@ class Entry(TimeStampedModel):
     tag = models.ManyToManyField(Tag)
     title = models.CharField('Titulo', max_length=200)
     resume = models.TextField('Resumen')
-    content = RichTextUploadingField('contenido')
+    content = RichTextField('contenido')
     public = models.BooleanField(default=False)
     image = models.ImageField('Imagen', upload_to='Entry',)
     portada = models.BooleanField(default=False)
     in_home = models.BooleanField(default=False)
     slug = models.SlugField(editable=False, max_length=300)
 
+    objects = EntryManagers()
+
     class Meta:
         verbose_name = 'Entrada'
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # 1calculamos en total de la hora actual
+
+        now = datetime.now()
+        total_time = timedelta(
+            hours=now.hour,
+            minutes=now.minute,
+            seconds=now.second
+        )
+
+        segundos = int(total_time.total_seconds())
+        slug_unico = f'{self.title}{str(segundos)}'
+        self.slug = slugify(slug_unico)
+        print(slug_unico)
+        super(Entry, self).save(*args, **kwargs)

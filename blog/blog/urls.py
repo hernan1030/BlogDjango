@@ -28,7 +28,14 @@ urlpatterns = [
     path('', include('app.home.urls')),
 
     # app user
-    path('', include('app.user.urls'))
+    path('', include('app.user.urls')),
+
+    # app entradas
+    path('', include('app.entrada.urls')),
+
+    # app favoritos
+    path('', include('app.favoritos.urls')),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

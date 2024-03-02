@@ -5,11 +5,20 @@ from django.db import models
 # INSTALLA  django model utilis
 # pip install django-model-utils
 # apps terceros
+# con el timeStampedModel ya nos tra fecha de creacion y de actulizacion y los models
 from model_utils.models import TimeStampedModel
 
 # Create your models here.
 
-# con el timeStampedModel ya nos tra fecha de creacion y de actulizacion y los models
+"""
+con este modelo se envian varios contextos al home
+title es el titulo de la pagina enviada al home
+description : es la descrpcion del contenido debajo del titulo
+about_title: es el titulo de nostros
+about_text: donde escribimo el mas sobre notros
+contac_email: correo donde nos contactan desde home se muestra
+phone: numero de telefono que se muestra desde el home
+"""
 
 
 class Home(TimeStampedModel):
@@ -29,7 +38,7 @@ class Home(TimeStampedModel):
         return self.title
 
 
-# clase para suscrubirse
+# este modelo es un campo de solo email para la suscrpcion de la pagina desde el home
 class Suscribers(TimeStampedModel):
     """ Suscripciones """
 
@@ -42,6 +51,7 @@ class Suscribers(TimeStampedModel):
         return self.email
 
 
+# este modelo se utiliza para el formulario para que te contacte ubicado en home
 class Contact(TimeStampedModel):
     """ Formulario de Contacto """
 

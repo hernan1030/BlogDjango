@@ -10,6 +10,9 @@
                <form method="post">
                    {% csrf_token %}
                    {{ form.as_p }}
+                   <!-- Agregar campo oculto para el ID del usuario -->
+                   <input type="hidden" name="user_id" value="{{ user_id }}">
+                   <!-- Fin del campo oculto -->
                    <button type="submit" class="btn btn-primary btn-block mt-3">Activar</button>
                </form>
            </div>

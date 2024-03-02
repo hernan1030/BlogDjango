@@ -35,7 +35,7 @@ class RegisterForms(forms.ModelForm):
             'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre Completo'}),
             'ocupation': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ocupacion'}),
             'genero': forms.Select(attrs={'class': 'form-control', 'placeholder': ''}),
-            'date_birth': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Fecha de nacimiento'})
+            'date_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha de nacimiento'})
         }
 
         labels = {

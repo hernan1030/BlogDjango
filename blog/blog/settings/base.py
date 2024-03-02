@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.processors.home_info',
             ],
         },
     },
@@ -127,6 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Esta línea se utiliza para especificar
 # un modelo personalizado de usuario que Django debe utilizar en lugar del modelo
 # de usuario predeterminado proporcionado por Django.
+# tambien se envia al la app favorito y en el modelo se envia el usuario actual
 AUTH_USER_MODEL = "user.User"
 
 
